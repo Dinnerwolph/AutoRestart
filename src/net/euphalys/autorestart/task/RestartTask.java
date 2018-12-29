@@ -11,9 +11,6 @@ import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TimerTask;
 
 /**
@@ -24,12 +21,14 @@ public class RestartTask extends TimerTask {
     private final String minutes;
     private final String seconds;
     private final String restart;
+    private final String script;
 
     public RestartTask(AutoRestart instance) {
         message = instance.getConfig().getString("message");
         minutes = instance.getConfig().getString("minutes");
         seconds = instance.getConfig().getString("seconds");
         restart = instance.getConfig().getString("restart");
+        script = instance.getConfig().getString("script");
     }
 
     @Override
@@ -65,20 +64,8 @@ public class RestartTask extends TimerTask {
     }
 
     private void restart() {
-
-        List<String> args = ManagementFactory.getRuntimeMXBean().getInputArguments();
-        List<String> command = new ArrayList();
-        command.add("screen -dmS lobby java ");
-        for (int i = 0; i < args.size(); i++) {
-            command.add(args.get(i));
-        }
-        command.add("-jar paper.jar");
-        String s = "";
-        for (String s1 : command) {
-            s = s + s1 + " ";
-        }
         try {
-            ProcessBuilder builder = new ProcessBuilder(new String[]{"/bin/bash", "-c", s});
+            ProcessBuilder builder = new ProcessBuilder(new String[]{"/bin/bash", "-c", script});
             Process process = builder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String reponse;
