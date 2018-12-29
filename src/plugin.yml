@@ -1,0 +1,4 @@
+name: AutoRestart
+main: net.euphalys.autorestart.AutoRestart
+version: 1.0
+author: Dinnerwolph

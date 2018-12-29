@@ -1,0 +1,4 @@
+message: "The server restarts in "
+minutes: " minutes"
+seconds: " seconds"
+restart: "the server restarts..."
