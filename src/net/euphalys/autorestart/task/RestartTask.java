@@ -63,7 +63,7 @@ public class RestartTask extends TimerTask {
         });
     }
 
-    private void restart() {
+    public void restart() {
         try {
             ProcessBuilder builder = new ProcessBuilder(new String[]{"/bin/bash", "-c", script});
             Process process = builder.start();
