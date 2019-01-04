@@ -5,8 +5,7 @@ import net.euphalys.autorestart.task.RestartTask;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.SimpleCommandMap;
-import org.bukkit.craftbukkit.v1_13_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_13_R2.command.CraftCommandMap;
+import org.bukkit.craftbukkit.v1_9_R1.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -28,7 +27,7 @@ public class AutoRestart extends JavaPlugin {
     public void onEnable() {
         instance = this;
         this.saveDefaultConfig();
-        date.setHours(23);
+        date.setHours(2);
         date.setMinutes(30);
         date.setSeconds(0);
         timer.schedule(restartTask = new RestartTask(this), date);
@@ -36,7 +35,7 @@ public class AutoRestart extends JavaPlugin {
         try {
             Field field = CraftServer.class.getDeclaredField("commandMap");
             field.setAccessible(true);
-            CraftCommandMap map = (CraftCommandMap) field.get(Bukkit.getServer());
+            SimpleCommandMap map = (SimpleCommandMap) field.get(Bukkit.getServer());
             Field field1 = SimpleCommandMap.class.getDeclaredField("knownCommands");
             field1.setAccessible(true);
             Map<String, Command> knownCommands = (Map) field1.get(map);
